@@ -42,6 +42,11 @@ function calculate() {
     // Calculate next network address
     var nextNetworkAddress = incrementIPAddress(networkAddress, hostInterval);
   
+    // Set succeeding octets to zero
+    for (var i = octetIndex + 1; i < 4; i++) {
+      octets[i] = "0";
+    }
+  
     // Calculate broadcast address
     var broadcastAddress = decrementIPAddress(nextNetworkAddress);
   
