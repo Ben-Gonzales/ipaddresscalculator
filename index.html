@@ -22,6 +22,7 @@
         <span id="title" class="text-light fs-5">IP Address Calculator</span>
       </div>
     </nav>
+
     <div class="container mt-5 pb-3">
       <h1 id="title" class="fs-2 text-center pb-2">IPv4 Subnet Calculator</h1>
       <p class="text-center">
@@ -34,27 +35,45 @@
       <div class="row">
         <div class="col-md-6 col-12 my-2">
           <div class="input-group">
-            <span class="input-group-text" id="basic-addon1">IP Address</span>
+            <span for="ip-address" class="input-group-text" id="basic-addon1"
+              >IP Address</span
+            >
             <input
               type="text"
               class="form-control"
               id="ip-address"
-              aria-describedby="basic-addon1" />
+              aria-describedby="basic-addon1"
+              value="192.168.0.1"
+              required />
+            <div id="ip-feedback" class="invalid-feedback">
+              Please enter a valid IP address.
+            </div>
           </div>
         </div>
         <div class="col-md-4 col-12 my-2">
           <div class="input-group">
-            <span class="input-group-text" id="basic-addon2">/</span>
+            <span for="prefix" class="input-group-text" id="basic-addon2"
+              >/</span
+            >
             <input
               type="text"
               class="form-control"
               id="prefix"
-              aria-describedby="basic-addon2" />
+              aria-describedby="basic-addon2"
+              value="24"
+              required />
+            <div id="prefix-feedback" class="invalid-feedback">
+              Please enter a valid prefix.
+            </div>
+            <div id="prefix-feedback" class="invalid-feedback">
+              Please enter a valid prefix.
+            </div>
           </div>
         </div>
         <div class="col-md-2 d-flex justify-content-center pb-2">
           <div class="d-flex pt-2 text-center text-sm-start">
             <button
+              id="calculate-btn"
               type="button"
               class="btn btn-sm btn-primary"
               onclick="calculate()">
@@ -64,8 +83,6 @@
         </div>
       </div>
     </div>
-
-    <!--output table-->
     <div class="container table-responsive">
       <table class="table table-hover mt-4 text-center">
         <thead>
