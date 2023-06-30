@@ -22,45 +22,44 @@
         <span id="title" class="text-light fs-5">IP Address Calculator</span>
       </div>
     </nav>
+  
     <div class="container mt-5 pb-3">
       <h1 id="title" class="fs-2 text-center pb-2">IPv4 Subnet Calculator</h1>
       <p class="text-center">
-        This IP Subnet Calculator takes an IP address and netmask and calculates
-        the resulting broadcast and network addresses, and its host range.
+        This IP Subnet Calculator takes an IP address and netmask and calculates the resulting broadcast and network
+        addresses, and its host range.
       </p>
     </div>
-
+  
     <div class="container d-flex justify-content-center">
       <div class="row">
         <div class="col-md-6 col-12 my-2">
           <div class="input-group">
-            <span class="input-group-text" id="basic-addon1">IP Address</span>
-            <input
-              type="text"
-              class="form-control"
-              id="ip-address"
-              aria-describedby="basic-addon1" />
+            <span for="ip-address" class="input-group-text" id="basic-addon1">IP Address</span>
+            <input type="text" class="form-control" id="ip-address" aria-describedby="basic-addon1" value="192.168.0.1" required />
+            <div id="ip-feedback" class="invalid-feedback">
+              Please enter a valid IP address.
+            </div>
           </div>
         </div>
         <div class="col-md-4 col-12 my-2">
           <div class="input-group">
-            <span class="input-group-text" id="basic-addon2">/</span>
-            <input
-              type="text"
-              class="form-control"
-              id="prefix"
-              aria-describedby="basic-addon2" />
+            <span for="prefix" class="input-group-text" id="basic-addon2">/</span>
+            <input type="text" class="form-control" id="prefix" aria-describedby="basic-addon2" value="24" required />
+            <div id="prefix-feedback" class="invalid-feedback">
+              Please enter a valid prefix.
+            </div>
           </div>
         </div>
         <div class="col-md-2 d-flex justify-content-center">
           <div class="d-flex pt-2 text-center text-sm-start">
-            <button type="button" class="btn btn-primary">Calculate</button>
+            <button id="calculate-btn" type="button" class="btn btn-primary">Calculate</button>
           </div>
         </div>
       </div>
     </div>
-
-    <!--output table-->
+  
+    <!-- output table -->
     <div class="container table-responsive">
       <table class="table table-hover mt-4 text-center">
         <thead>
@@ -83,12 +82,10 @@
         </tbody>
       </table>
     </div>
-
+  
     <footer class="d-flex justify-content-between pt-3 border-top">
       <div class="container">
-        <p
-          class="fs-6 text-secondary text-center text-muted mx-4"
-          style="--bs-text-opacity: 0.5">
+        <p class="fs-6 text-secondary text-center text-muted mx-4" style="--bs-text-opacity: 0.5">
           © 2023 IP Subnet Calculator
         </p>
         <ul class="text-dark-emphasis nav justify-content-center pb-3">
