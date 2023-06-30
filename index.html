@@ -36,8 +36,7 @@
         <div class="col-md-6 col-12 my-2">
           <div class="input-group">
             <span for="ip-address" class="input-group-text" id="basic-addon1"
-              >IP Address</span
-            >
+              >IP Address</span>
             <input
               type="text"
               class="form-control"
@@ -62,9 +61,6 @@
               aria-describedby="basic-addon2"
               value="24"
               required />
-            <div id="prefix-feedback" class="invalid-feedback">
-              Please enter a valid prefix.
-            </div>
             <div id="prefix-feedback" class="invalid-feedback">
               Please enter a valid prefix.
             </div>
@@ -95,11 +91,11 @@
         </thead>
         <tbody>
           <tr>
-            <td>192.168.1.1</td>
-            <td>192.168.1.1</td>
-            <td>192.168.1.1</td>
-            <td>192.168.1.1</td>
-            <td>192.168.1.1</td>
+            <td id="network-address">192.168.1.1</td>
+            <td id="lowest-usable">192.168.1.1</td>
+            <td id="highest-usable">192.168.1.1</td>
+            <td id="broadcast-address">192.168.1.1</td>
+            <td id="next-network-address">192.168.1.1</td>
           </tr>
         </tbody>
       </table>

@@ -46,16 +46,3 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 });
-
-let ipAdd = 0;
-let prefix = 0;
-
-function calculate() {
-  ipAdd = document.getElementById("ip-address").value;
-  ipAdd = ipAdd.split(".").map((octet) => parseInt(octet, 10));
-  prefix = document.getElementById("prefix").value;
-  console.log(ipAdd);
-  console.log(prefix);
-}
-
-calculate();
