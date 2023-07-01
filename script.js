@@ -1,7 +1,7 @@
 function calculate() {
     // Get input values
     var ipAddress = document.querySelector("#ip-address").value;
-    var prefix = parseInt(document.querySelector("#prefix").value);
+    var prefix = parseInt(document.querySelector("#subnet-mask").value);
   
     // Validate input values
     var ipValid = validateIPAddress(ipAddress);
@@ -24,11 +24,53 @@ function calculate() {
     }
   
     // For Benedict
-    function getNetworkAddress(ipAddress, subnetMask) {
-   let networkAddress;
-    // TODO: Insert computation here
+    function getNetworkAddress(ipAddress, prefix) {
+   // Convert IP address to binary
+  const ipBinary = ipAddress.split('.').map((octet) => {
+    return ('00000000' + parseInt(octet, 10).toString(2)).slice(-8);
+  });
 
-   return networkAddress;
+  // Calculate the subnet mask based on the prefix
+  const subnetMaskBinary = [];
+  for (let i = 0; i < 32; i++) {
+    if (i < prefix) {
+      subnetMaskBinary.push('1');
+    } else {
+      subnetMaskBinary.push('0');
+    }
+  }
+
+  // Split the subnet mask binary into octets
+  const subnetMaskOctets = [];
+  for (let i = 0; i < 32; i += 8) {
+    const octetBinary = subnetMaskBinary.slice(i, i + 8).join('');
+    subnetMaskOctets.push(parseInt(octetBinary, 2));
+  }
+
+  // Calculate the network address
+  const networkAddressBinary = [];
+  for (let i = 0; i < 4; i++) {
+    const ipOctet = ipBinary[i];
+    const subnetMaskOctet = subnetMaskOctets[i];
+    let networkOctet = '';
+    for (let j = 0; j < 8; j++) {
+      const ipBit = ipOctet.charAt(j);
+      const subnetMaskBit = subnetMaskOctet & (1 << (7 - j)) ? '1' : '0';
+      if (subnetMaskBit === '1') {
+        networkOctet += ipBit;
+      } else {
+        networkOctet += '0';
+      }
+    }
+    networkAddressBinary.push(networkOctet);
+  }
+
+  // Convert network address back to decimal
+  const networkAddress = networkAddressBinary.map((octet) => {
+    return parseInt(octet, 2);
+  });
+
+  return networkAddress.join('.');
   }
 
 // For Gelo
@@ -41,6 +83,8 @@ function getBroadcastAddress(ipAddress, subnetMask) {
   
 const networkAddress = getNetworkAddress(ipAddress, prefix)
 const broadcast = getBroadcastAddress(ipAddress, prefix)
+
+console.log(networkAddress);
 
     // Update table values
     document.querySelector("#network-address").textContent = networkAddress;
