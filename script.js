@@ -23,39 +23,25 @@ function calculate() {
       return;
     }
   
-    // Split IP address into octets
-    var octets = ipAddress.split(".");
+    // For Benedict
+    function getNetworkAddress(ipAddress, subnetMask) {
+   let networkAddress;
+    // TODO: Insert computation here
+
+   return networkAddress;
+  }
+
+// For Gelo
+function getBroadcastAddress(ipAddress, subnetMask) {
+  let broadcastAddress;
+  // TODO: Insert computation here
+
+  return broadcastAddress;
+}
   
-    // Determine octet index based on prefix
-    var octetIndex = Math.floor(prefix / 8);
-  
-    // Determine network and host bits in the octet
-    var networkBits = prefix % 8;
-    var hostBits = 8 - networkBits;
-  
-    // Calculate network address
-    var networkAddress = octets.slice(0, octetIndex).join(".") + "." + octets[octetIndex];
-  
-    // Calculate the interval for host addresses
-    var hostInterval = Math.pow(2, hostBits);
-  
-    // Calculate next network address
-    var nextNetworkAddress = incrementIPAddress(networkAddress, hostInterval);
-  
-    // Set succeeding octets to zero
-    for (var i = octetIndex + 1; i < 4; i++) {
-      octets[i] = "0";
-    }
-  
-    // Calculate broadcast address
-    var broadcastAddress = decrementIPAddress(nextNetworkAddress);
-  
-    // Calculate highest usable address
-    var highestUsable = decrementIPAddress(broadcastAddress);
-  
-    // Calculate lowest usable address
-    var lowestUsable = incrementIPAddress(networkAddress, 1);
-  
+const networkAddress = getNetworkAddress(ipAddress, prefix)
+const broadcast = getBroadcastAddress(ipAddress, prefix)
+
     // Update table values
     document.querySelector("#network-address").textContent = networkAddress;
     document.querySelector("#lowest-usable").textContent = lowestUsable;
