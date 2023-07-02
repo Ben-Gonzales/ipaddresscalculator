@@ -8,3 +8,19 @@
   font-family: "Inter", sans-serif;
   font-weight: 600;
 }
+
+#table2 {
+  font-size: 14px;
+}
+
+@media only screen and (max-width: 426px) {
+  #table2 {
+    width: 100%;
+  }
+}
+
+@media only screen and (min-width: 426px) {
+  #table2 {
+    width: 70%;
+  }
+}
