@@ -117,8 +117,6 @@ function calculate() {
 }
 
 function Interval(prefix){
-/*function Interval(prefix){
-function Interval(prefix){
   // Calculate the interval based on the prefix and octet position
   const interval = Math.pow(2, 8 - (prefix % 8 || 8));
   return interval;
@@ -157,8 +155,6 @@ function getNextNetworkAddress(ipAddress, prefix) {
 
   return nextNetworkAddress;
 }
-}*/
-}
 
   
 const networkAddress = getNetworkAddress(ipAddress, prefix);
@@ -167,12 +163,8 @@ const nextNetworkAddress = getNextNetworkAddress(ipAddress, prefix);
 const Interval = Interval(prefix);
 
 console.log(networkAddress);
-  console.log(networkAddress);
-console.log(networkAddress);
 console.log(networkAddress);
 console.log(nextNetworkAddress);
-console.log(Interval);
-//console.log(Interval);
 console.log(Interval);
 
   // Update table values
@@ -182,9 +174,6 @@ console.log(Interval);
   document.querySelector("#broadcast-address").textContent = broadcastAddress;
   document.querySelector("#next-network-address").textContent =
     nextNetworkAddress;
-
-
-
 
 
 
@@ -277,15 +266,7 @@ console.log(Interval);
 
 
 
-
-
-
-
 }
-
-
-
-
 
 
 
