@@ -116,6 +116,8 @@ function calculate() {
   return broadcastAddress;
 }
 
+
+/*function Interval(prefix){
 function Interval(prefix){
   // Calculate the interval based on the prefix and octet position
   const interval = Math.pow(2, 8 - (prefix % 8 || 8));
