@@ -116,7 +116,9 @@ function calculate() {
   return broadcastAddress;
 }
 
+function Interval(prefix){
 /*function Interval(prefix){
+function Interval(prefix){
   // Calculate the interval based on the prefix and octet position
   const interval = Math.pow(2, 8 - (prefix % 8 || 8));
   return interval;
@@ -154,7 +156,9 @@ function getNextNetworkAddress(ipAddress, prefix) {
   const nextNetworkAddress = nextNetworkOctets.join('.');
 
   return nextNetworkAddress;
+}
 }*/
+}
 
   
 const networkAddress = getNetworkAddress(ipAddress, prefix);
@@ -162,20 +166,27 @@ const broadcast = getBroadcastAddress(ipAddress, prefix);
 const nextNetworkAddress = getNextNetworkAddress(ipAddress, prefix);
 const Interval = Interval(prefix);
 
+console.log(networkAddress);
   console.log(networkAddress);
 console.log(networkAddress);
+console.log(networkAddress);
 console.log(nextNetworkAddress);
+console.log(Interval);
 //console.log(Interval);
+console.log(Interval);
 
   // Update table values
   document.querySelector("#network-address").textContent = networkAddress;
-  /*
   document.querySelector("#lowest-usable").textContent = lowestUsable;
   document.querySelector("#highest-usable").textContent = highestUsable;
   document.querySelector("#broadcast-address").textContent = broadcastAddress;
   document.querySelector("#next-network-address").textContent =
     nextNetworkAddress;
-*/
+
+
+
+
+
 
   // For Alex
   function getSubnetMask(hostBits) {
@@ -262,7 +273,23 @@ console.log(nextNetworkAddress);
   let totalHosts = getTotalHosts(prefix);
   document.getElementById("usableHost").innerHTML = usableHosts;
   document.getElementById("totalHost").innerHTML = totalHosts;
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
 
 function validateIPAddress(ipAddress) {
   var ipRegex = /^(\d{1,3}\.){3}\d{1,3}$/;
