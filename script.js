@@ -167,13 +167,11 @@ function getNextNetworkAddress(ipAddress, prefix) {
 
   // Update table values
   document.querySelector("#network-address").textContent = networkAddress;
-  /*
   document.querySelector("#lowest-usable").textContent = lowestUsable;
   document.querySelector("#highest-usable").textContent = highestUsable;
   document.querySelector("#broadcast-address").textContent = broadcastAddress;
   document.querySelector("#next-network-address").textContent =
     nextNetworkAddress;
-*/
 
   // For Alex
   function getSubnetMask(hostBits) {
