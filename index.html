@@ -43,7 +43,7 @@
               class="form-control"
               id="ip-address"
               aria-describedby="basic-addon1"
-              value="192.168.0.1"
+              value=""
               required />
             <div id="ip-feedback" class="invalid-feedback">
               Please enter a valid IP address.
@@ -58,9 +58,9 @@
             <input
               type="text"
               class="form-control"
-              id="prefix"
+              id="subnet-mask"
               aria-describedby="basic-addon2"
-              value="24"
+              value=""
               required />
             <div id="prefix-feedback" class="invalid-feedback">
               Please enter a valid prefix.
@@ -93,29 +93,60 @@
         </thead>
         <tbody>
           <tr>
-            <td id="network-address">192.168.1.1</td>
-            <td id="lowest-usable">192.168.1.1</td>
-            <td id="highest-usable">192.168.1.1</td>
-            <td id="broadcast-address">192.168.1.1</td>
-            <td id="next-network-address">192.168.1.1</td>
+            <td id="network-address"></td>
+            <td id="lowest-usable"></td>
+            <td id="highest-usable"></td>
+            <td id="broadcast-address"></td>
+            <td id="next-network-address"></td>
           </tr>
         </tbody>
       </table>
     </div>
 
-    <footer
-      class="footer-bs d-flex justify-content-between pt-3 border-top m-auto">
-      <div class="container">
-        <p
-          class="fs-6 text-secondary text-center text-muted mx-4"
+    <div class="container">
+      <div class="d-flex justify-content-center mt-3 mb-5">
+        <table class="table table-striped-columns" id="table2">
+          <tbody>
+            <tr>
+              <td class="col-5">Subnet Mask:</td>
+              <td id="subnetMask"></td>
+            </tr>
+            <tr>
+              <td class="col-5">Binary Subnet Mask:</td>
+              <td id="subnetMaskBinary"></td>
+            </tr>
+            <tr>
+              <td>IP Class:</td>
+              <td id="ipClass"></td>
+            </tr>
+            <tr>
+              <td>Total Number of Hosts:</td>
+              <td id="totalHost"></td>
+            </tr>
+            <tr>
+              <td>Usable Hosts:</td>
+              <td id="usableHost"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <footer class="footer-bs border-top py-2 my-2">
+      <div id="footer" class="d-flex flex-wrap justify-content-around">
+        <div
+          class="fs-6 text-secondary text-muted"
           style="--bs-text-opacity: 0.5">
           © 2023 IP Subnet Calculator
-        </p>
-        <ul class="text-dark-emphasis nav justify-content-center pb-3">
-          <li class="nav-item mx-4">Benedict Gonzales</li>
-          <li class="nav-item mx-4">Alexander Oxales</li>
-          <li class="nav-item mx-4">Karl Portollano</li>
-        </ul>
+        </div>
+
+        <div>
+          <ul class="text-dark-emphasis nav justify-content-center">
+            <li class="nav-item mx-3">Benedict Gonzales</li>
+            <li class="nav-item mx-3">Alexander Oxales</li>
+            <li class="nav-item mx-3">Karl Portollano</li>
+          </ul>
+        </div>
       </div>
     </footer>
     <script src="script.js"></script>
