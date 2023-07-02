@@ -165,7 +165,7 @@ function getNextNetworkAddress(ipAddress, prefix) {
     // document.querySelector("#broadcast-address").textContent = broadcastAddress;
     // document.querySelector("#next-network-address").textContent =
     //   nextNetworkAddress;
-  }
+  
 
 
   // For Alex
@@ -340,4 +340,5 @@ function decrementIPAddress(ipAddress) {
   }
 
   return octets.join(".");
+}
 }
