@@ -1,4 +1,4 @@
-function calculate() {
+function calculate(){
   // Get input values
   var ipAddress = document.querySelector("#ip-address").value;
   var prefix = parseInt(document.querySelector("#subnet-mask").value);
@@ -23,12 +23,6 @@ function calculate() {
     return;
   }
 
-  // For Benedict
-  function getNetworkAddress(ipAddress, prefix) {
-    // Convert IP address to binary
-    const ipBinary = ipAddress.split(".").map((octet) => {
-      return ("00000000" + parseInt(octet, 10).toString(2)).slice(-8);
-    });
     // Get input values
     var ipAddress = document.querySelector("#ip-address").value;
     var prefix = parseInt(document.querySelector("#subnet-mask").value);
@@ -162,12 +156,12 @@ function getNextNetworkAddress(ipAddress, prefix) {
 const networkAddress = getNetworkAddress(ipAddress, prefix);
 const broadcast = getBroadcastAddress(ipAddress, prefix);
 const nextNetworkAddress = getNextNetworkAddress(ipAddress, prefix);
-const Interval = Interval(prefix);
+//const Interval = Interval(prefix);
 
 console.log(networkAddress);
 console.log(networkAddress);
 console.log(nextNetworkAddress);
-console.log(Interval);
+//console.log(Interval);
 
   // Update table values
   document.querySelector("#network-address").textContent = networkAddress;
