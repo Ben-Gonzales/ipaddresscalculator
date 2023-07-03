@@ -23,6 +23,30 @@ function calculate() {
     return;
   }
 
+  // Get input values
+  var ipAddress = document.querySelector("#ip-address").value;
+  var prefix = parseInt(document.querySelector("#subnet-mask").value);
+
+  // Validate input values
+  var ipValid = validateIPAddress(ipAddress);
+  var prefixValid = validatePrefix(prefix);
+
+  if (!ipValid) {
+    document.querySelector("#ip-feedback").style.display = "block";
+  } else {
+    document.querySelector("#ip-feedback").style.display = "none";
+  }
+
+  if (!prefixValid) {
+    document.querySelector("#prefix-feedback").style.display = "block";
+  } else {
+    document.querySelector("#prefix-feedback").style.display = "none";
+  }
+
+  if (!ipValid || !prefixValid) {
+    return;
+  }
+
   // For Benedict
   function getNetworkAddress(ipAddress, prefix) {
     // Convert IP address to binary
@@ -73,10 +97,10 @@ function calculate() {
     return networkAddress.join(".");
   }
 
-  // For Gelo
-  function getBroadcastAddress(ipAddress, subnetMask) {
-    let broadcastAddress;
-    // TODO: Insert computation here
+  /*// For Gelo
+    function getBroadcastAddress(ipAddress, subnetMask) {
+      let broadcastAddress;
+      // TODO: Insert computation here
 
     return broadcastAddress;
   }
@@ -227,90 +251,91 @@ function getNextNetworkAddress(ipAddress, prefix) {
   let totalHosts = getTotalHosts(prefix);
   document.getElementById("usableHost").innerHTML = usableHosts;
   document.getElementById("totalHost").innerHTML = totalHosts;
-}
-function validateIPAddress(ipAddress) {
-  var ipRegex = /^(\d{1,3}\.){3}\d{1,3}$/;
-  if (!ipRegex.test(ipAddress)) {
-    return false;
-  }
 
-  var octets = ipAddress.split(".");
-  for (var i = 0; i < 4; i++) {
-    var octet = parseInt(octets[i]);
-    if (isNaN(octet) || octet < 0 || octet > 255) {
+  function validateIPAddress(ipAddress) {
+    var ipRegex = /^(\d{1,3}\.){3}\d{1,3}$/;
+    if (!ipRegex.test(ipAddress)) {
       return false;
     }
-  }
 
-  return true;
-}
-
-function validatePrefix(prefix) {
-  return prefix >= 0 && prefix <= 32;
-}
-
-function incrementIPAddress(ipAddress, increment) {
-  var octets = ipAddress.split(".");
-  var lastIndex = octets.length - 1;
-
-  // Convert last octet to integer
-  var lastOctet = parseInt(octets[lastIndex]);
-
-  // Increment last octet
-  lastOctet += increment;
-
-  // Handle carryover to previous octets
-  for (var i = lastIndex; i >= 0; i--) {
-    if (lastOctet > 255) {
-      // Carryover to previous octet
-      lastOctet -= 256;
-      octets[i] = "0";
-      if (i > 0) {
-        // Increment previous octet
-        octets[i - 1] = String(parseInt(octets[i - 1]) + 1);
-      } else {
-        // First octet reached, invalid
-        return "Invalid";
+    var octets = ipAddress.split(".");
+    for (var i = 0; i < 4; i++) {
+      var octet = parseInt(octets[i]);
+      if (isNaN(octet) || octet < 0 || octet > 255) {
+        return false;
       }
-    } else {
-      // Update last octet
-      octets[lastIndex] = String(lastOctet);
-      break;
     }
+
+    return true;
   }
 
-  return octets.join(".");
-}
+  function validatePrefix(prefix) {
+    return prefix >= 0 && prefix <= 32;
+  }
 
-function decrementIPAddress(ipAddress) {
-  var octets = ipAddress.split(".");
-  var lastIndex = octets.length - 1;
+  function incrementIPAddress(ipAddress, increment) {
+    var octets = ipAddress.split(".");
+    var lastIndex = octets.length - 1;
 
-  // Convert last octet to integer
-  var lastOctet = parseInt(octets[lastIndex]);
+    // Convert last octet to integer
+    var lastOctet = parseInt(octets[lastIndex]);
 
-  // Decrement last octet
-  lastOctet -= 1;
+    // Increment last octet
+    lastOctet += increment;
 
-  // Handle borrow from previous octets
-  for (var i = lastIndex; i >= 0; i--) {
-    if (lastOctet < 0) {
-      // Borrow from previous octet
-      lastOctet += 256;
-      octets[i] = "255";
-      if (i > 0) {
-        // Decrement previous octet
-        octets[i - 1] = String(parseInt(octets[i - 1]) - 1);
+    // Handle carryover to previous octets
+    for (var i = lastIndex; i >= 0; i--) {
+      if (lastOctet > 255) {
+        // Carryover to previous octet
+        lastOctet -= 256;
+        octets[i] = "0";
+        if (i > 0) {
+          // Increment previous octet
+          octets[i - 1] = String(parseInt(octets[i - 1]) + 1);
+        } else {
+          // First octet reached, invalid
+          return "Invalid";
+        }
       } else {
-        // First octet reached, invalid
-        return "Invalid";
+        // Update last octet
+        octets[lastIndex] = String(lastOctet);
+        break;
       }
-    } else {
-      // Update last octet
-      octets[lastIndex] = String(lastOctet);
-      break;
     }
+
+    return octets.join(".");
   }
 
-  return octets.join(".");
+  function decrementIPAddress(ipAddress) {
+    var octets = ipAddress.split(".");
+    var lastIndex = octets.length - 1;
+
+    // Convert last octet to integer
+    var lastOctet = parseInt(octets[lastIndex]);
+
+    // Decrement last octet
+    lastOctet -= 1;
+
+    // Handle borrow from previous octets
+    for (var i = lastIndex; i >= 0; i--) {
+      if (lastOctet < 0) {
+        // Borrow from previous octet
+        lastOctet += 256;
+        octets[i] = "255";
+        if (i > 0) {
+          // Decrement previous octet
+          octets[i - 1] = String(parseInt(octets[i - 1]) - 1);
+        } else {
+          // First octet reached, invalid
+          return "Invalid";
+        }
+      } else {
+        // Update last octet
+        octets[lastIndex] = String(lastOctet);
+        break;
+      }
+    }
+
+    return octets.join(".");
+  }
 }
