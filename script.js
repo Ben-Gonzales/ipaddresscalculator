@@ -97,6 +97,11 @@ function calculate() {
     return networkAddress.join(".");
   }
 
+  function getLowestUsable(networkAddress) {
+    // Increment the network address to get the lowest usable address
+    const lowestUsable = incrementIPAddress(networkAddress, 1);
+    return lowestUsable;
+  }
   /*// For Gelo
     function getBroadcastAddress(ipAddress, subnetMask) {
       let broadcastAddress;
@@ -149,18 +154,19 @@ function getNextNetworkAddress(ipAddress, prefix) {
 }*/
 
   const networkAddress = getNetworkAddress(ipAddress, prefix);
+  const lowestUsable = getLowestUsable(networkAddress);
   // const broadcast = getBroadcastAddress(ipAddress, prefix);
   // const nextNetworkAddress = getNextNetworkAddress(ipAddress, prefix);
   // const Interval = Interval(prefix);
 
   console.log(networkAddress);
-  // console.log(networkAddress);
+  console.log(lowestUsable);
   // console.log(nextNetworkAddress);
   //console.log(Interval);
 
   // Update table values
   document.querySelector("#network-address").textContent = networkAddress;
-  // document.querySelector("#lowest-usable").textContent = lowestUsable;
+  document.querySelector("#lowest-usable").textContent = lowestUsable;
   // document.querySelector("#highest-usable").textContent = highestUsable;
   // document.querySelector("#broadcast-address").textContent = broadcastAddress;
   // document.querySelector("#next-network-address").textContent =
@@ -199,29 +205,25 @@ function getNextNetworkAddress(ipAddress, prefix) {
     return subnetMaskOctetsFormatted;
   }
 
-  function getIPClass(ipAddress) {
+  function getIPClass(ipAddress, prefix) {
     let ipSplit = ipAddress.split(".");
     let firstOctet = ipSplit[0];
     let ipClass;
 
-    if (firstOctet >= 1 && firstOctet <= 126) {
+    if (firstOctet >= 1 && firstOctet <= 126 && prefix == 8) {
       ipClass = "A";
-    } else if (firstOctet >= 128 && firstOctet <= 191) {
+    } else if (firstOctet >= 128 && firstOctet <= 191 && prefix == 16) {
       ipClass = "B";
-    } else if (firstOctet >= 192 && firstOctet <= 223) {
+    } else if (firstOctet >= 192 && firstOctet <= 223 && prefix == 24) {
       ipClass = "C";
-    } else if (firstOctet >= 224 && firstOctet <= 239) {
-      ipClass = "D";
-    } else if (firstOctet >= 240 && firstOctet <= 255) {
-      ipClass = "E";
     } else {
-      ipClass = "Invalid";
+      ipClass = "Classless";
     }
     return ipClass;
   }
 
   let subnetMask2 = getSubnetMask(prefix);
-  let ipClass = getIPClass(ipAddress);
+  let ipClass = getIPClass(ipAddress, prefix);
   let subnetBinary = getSubnetBinary(prefix);
 
   document.getElementById("subnetMask").innerHTML = subnetMask2;
@@ -249,8 +251,9 @@ function getNextNetworkAddress(ipAddress, prefix) {
 
   let usableHosts = getUsableHosts(prefix);
   let totalHosts = getTotalHosts(prefix);
-  document.getElementById("usableHost").innerHTML = usableHosts;
-  document.getElementById("totalHost").innerHTML = totalHosts;
+  document.getElementById("usableHost").innerHTML =
+    usableHosts.toLocaleString();
+  document.getElementById("totalHost").innerHTML = totalHosts.toLocaleString();
 
   function validateIPAddress(ipAddress) {
     var ipRegex = /^(\d{1,3}\.){3}\d{1,3}$/;
