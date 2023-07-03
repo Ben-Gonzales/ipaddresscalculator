@@ -170,43 +170,43 @@ function calculate() {
     return broadcastAddress.join(".");
   }
 
-  function getNextNetworkAddress(broadcastAddress){
-  // Convert the network address to an array of octets
-  var octets = broadcastAddress.split(".");
+  function getNextNetworkAddress(broadcastAddress) {
+    // Convert the network address to an array of octets
+    var octets = broadcastAddress.split(".");
 
-  // Initialize the carry variable
-  var carry = 1;
+    // Initialize the carry variable
+    var carry = 1;
 
-  // Iterate through the octets in reverse order
-  for (var i = octets.length - 1; i >= 0; i--) {
-    // Convert the octet to an integer
-    var octet = parseInt(octets[i]);
+    // Iterate through the octets in reverse order
+    for (var i = octets.length - 1; i >= 0; i--) {
+      // Convert the octet to an integer
+      var octet = parseInt(octets[i]);
 
-    // Add the carry to the current octet
-    var sum = octet + carry;
+      // Add the carry to the current octet
+      var sum = octet + carry;
 
-    // Check if the sum exceeds 255
-    if (sum > 255) {
-      // Carry over to the next octet
-      carry = 1;
-      octet = sum - 256;
-    } else {
-      // No carry needed
-      carry = 0;
-      octet = sum;
+      // Check if the sum exceeds 255
+      if (sum > 255) {
+        // Carry over to the next octet
+        carry = 1;
+        octet = sum - 256;
+      } else {
+        // No carry needed
+        carry = 0;
+        octet = sum;
+      }
+
+      // Update the octet in the array
+      octets[i] = octet.toString();
+
+      // Break the loop if no carry is needed
+      if (carry === 0) {
+        break;
+      }
     }
 
-    // Update the octet in the array
-    octets[i] = octet.toString();
-
-    // Break the loop if no carry is needed
-    if (carry === 0) {
-      break;
-    }
-  }
-
-  // Join the octets into a string and return the next network address
-  return octets.join(".");
+    // Join the octets into a string and return the next network address
+    return octets.join(".");
   }
 
   const networkAddress = getNetworkAddress(ipAddress, prefix);
@@ -215,16 +215,13 @@ function calculate() {
   const nextNetworkAddress = getNextNetworkAddress(broadcast);
   const highestUsable = decrementIPAddress(broadcast, 1);
 
-  console.log(networkAddress);
-  console.log(lowestUsable);
-  console.log(nextNetworkAddress);
-
   // Update table values
   document.querySelector("#network-address").textContent = networkAddress;
   document.querySelector("#lowest-usable").textContent = lowestUsable;
   document.querySelector("#highest-usable").textContent = highestUsable;
   document.querySelector("#broadcast-address").textContent = broadcast;
-  document.querySelector("#next-network-address").textContent = nextNetworkAddress;
+  document.querySelector("#next-network-address").textContent =
+    nextNetworkAddress;
 
   // For Alex
   function getSubnetMask(hostBits) {
