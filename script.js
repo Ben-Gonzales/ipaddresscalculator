@@ -97,6 +97,12 @@ function calculate(){
       return networkAddress.join(".");
     }
 
+    function getLowestUsable(networkAddress) {
+      // Increment the network address to get the lowest usable address
+      const lowestUsable = incrementIPAddress(networkAddress, 1);
+      return lowestUsable;
+    }
+
     /*// For Gelo
     function getBroadcastAddress(ipAddress, subnetMask) {
       let broadcastAddress;
@@ -149,18 +155,19 @@ function getNextNetworkAddress(ipAddress, prefix) {
 }*/
 
     const networkAddress = getNetworkAddress(ipAddress, prefix);
+    const lowestUsable = getLowestUsable(networkAddress);
     // const broadcast = getBroadcastAddress(ipAddress, prefix);
     // const nextNetworkAddress = getNextNetworkAddress(ipAddress, prefix);
     // const Interval = Interval(prefix);
 
     console.log(networkAddress);
-    console.log(networkAddress);
+    console.log(lowestUsable);
     // console.log(nextNetworkAddress);
     //console.log(Interval);
 
     // Update table values
     document.querySelector("#network-address").textContent = networkAddress;
-    // document.querySelector("#lowest-usable").textContent = lowestUsable;
+    document.querySelector("#lowest-usable").textContent = lowestUsable;
     // document.querySelector("#highest-usable").textContent = highestUsable;
     // document.querySelector("#broadcast-address").textContent = broadcastAddress;
     // document.querySelector("#next-network-address").textContent =
