@@ -97,11 +97,11 @@ function calculate() {
     return networkAddress.join(".");
   }
 
-  function getLowestUsable(networkAddress) {
+  /*function getLowestUsable(networkAddress) {
     // Increment the network address to get the lowest usable address
     const lowestUsable = incrementIPAddress(networkAddress, 1);
     return lowestUsable;
-  }
+  }*/
 
   // For Gelo
   function getBroadcastAddress(ipAddress, prefix) {
@@ -177,7 +177,7 @@ function calculate() {
   }
 
   const networkAddress = getNetworkAddress(ipAddress, prefix);
-  const lowestUsable = getLowestUsable(networkAddress);
+  const lowestUsable = incrementIPAddress(networkAddress, 1);
   const broadcast = getBroadcastAddress(ipAddress, prefix);
   // const nextNetworkAddress = getNextNetworkAddress(ipAddress, prefix);
   const highestUsable = decrementIPAddress(broadcast, 1);
