@@ -392,4 +392,6 @@ function calculate() {
 
     return octets.join(".");
   }
+
+  console.log("Benedict");
 }
