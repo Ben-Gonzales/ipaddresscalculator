@@ -109,61 +109,15 @@ function calculate(){
       // TODO: Insert computation here
 
       return broadcastAddress;
-    }
-
-    // const networkAddress = getNetworkAddress(ipAddress, prefix);
-    // const broadcast = getBroadcastAddress(ipAddress, prefix);
-
-    /*function Interval(prefix){
-  // Calculate the interval based on the prefix and octet position
-  const interval = Math.pow(2, 8 - (prefix % 8 || 8));
-  return interval;
-}
-
-function getNextNetworkAddress(ipAddress, prefix) {
-  // Split IP address into octets
-  const ipOctets = ipAddress.split('.');
-
-  // Convert octets to decimal values
-  const ipDecimals = ipOctets.map((octet) => parseInt(octet, 10));
-
-  // Determine the octet position based on the prefix
-  const octetPosition = Math.floor((prefix - 1) / 8); // 0-indexed
-
-  // Calculate the interval based on the prefix and octet position
-  const interval = Math.pow(2, 8 - (prefix % 8 || 8));
-
-  // Calculate the next network address
-  const nextNetworkDecimals = ipDecimals.map((octet, index) => {
-    if (index === octetPosition) {
-      return octet + interval;
-    } else if (index > octetPosition) {
-      return 0;
-    }
-    return octet;
-  });
-
-  // Convert decimal values to octets
-  const nextNetworkOctets = nextNetworkDecimals.map((decimal) => {
-    return decimal.toString();
-  });
-
-  // Join octets into a string
-  const nextNetworkAddress = nextNetworkOctets.join('.');
-
-  return nextNetworkAddress;
-}*/
+    }*/
 
     const networkAddress = getNetworkAddress(ipAddress, prefix);
     const lowestUsable = getLowestUsable(networkAddress);
     // const broadcast = getBroadcastAddress(ipAddress, prefix);
-    // const nextNetworkAddress = getNextNetworkAddress(ipAddress, prefix);
-    // const Interval = Interval(prefix);
 
     console.log(networkAddress);
     console.log(lowestUsable);
-    // console.log(nextNetworkAddress);
-    //console.log(Interval);
+
 
     // Update table values
     document.querySelector("#network-address").textContent = networkAddress;
