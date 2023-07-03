@@ -393,3 +393,5 @@ function calculate() {
     return octets.join(".");
   }
 }
+
+console.log("Alex pogi");
