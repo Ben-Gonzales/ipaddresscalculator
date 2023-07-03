@@ -97,12 +97,6 @@ function calculate() {
     return networkAddress.join(".");
   }
 
-  /*function getLowestUsable(networkAddress) {
-    // Increment the network address to get the lowest usable address
-    const lowestUsable = incrementIPAddress(networkAddress, 1);
-    return lowestUsable;
-  }*/
-
   // For Gelo
   function getBroadcastAddress(ipAddress, prefix) {
     // Convert IP address to binary
