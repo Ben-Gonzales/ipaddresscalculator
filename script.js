@@ -105,89 +105,90 @@ function calculate() {
 
   // For Gelo
   function getBroadcastAddress(ipAddress, prefix) {
-  // Convert IP address to binary
-  const ipBinary = ipAddress.split(".").map((octet) => {
-    return ("00000000" + parseInt(octet, 10).toString(2)).slice(-8);
-  });
+    // Convert IP address to binary
+    const ipBinary = ipAddress.split(".").map((octet) => {
+      return ("00000000" + parseInt(octet, 10).toString(2)).slice(-8);
+    });
 
-  // Calculate the subnet mask based on the prefix
-  const subnetMaskBinary = [];
-  for (let i = 0; i < 32; i++) {
-    if (i < prefix) {
-      subnetMaskBinary.push("1");
-    } else {
-      subnetMaskBinary.push("0");
-    }
-  }
-
-  // Split the subnet mask binary into octets
-  const subnetMaskOctets = [];
-  for (let i = 0; i < 32; i += 8) {
-    const octetBinary = subnetMaskBinary.slice(i, i + 8).join("");
-    subnetMaskOctets.push(parseInt(octetBinary, 2));
-  }
-
-  // Calculate the network address
-  const networkAddressBinary = [];
-  for (let i = 0; i < 4; i++) {
-    const ipOctet = ipBinary[i];
-    const subnetMaskOctet = subnetMaskOctets[i];
-    let networkOctet = "";
-    for (let j = 0; j < 8; j++) {
-      const ipBit = ipOctet.charAt(j);
-      const subnetMaskBit = subnetMaskOctet & (1 << (7 - j)) ? "1" : "0";
-      if (subnetMaskBit === "1") {
-        networkOctet += ipBit;
+    // Calculate the subnet mask based on the prefix
+    const subnetMaskBinary = [];
+    for (let i = 0; i < 32; i++) {
+      if (i < prefix) {
+        subnetMaskBinary.push("1");
       } else {
-        networkOctet += "0";
+        subnetMaskBinary.push("0");
       }
     }
-    networkAddressBinary.push(networkOctet);
-  }
 
-  // Convert network address back to decimal
-  const networkAddress = networkAddressBinary.map((octet) => {
-    return parseInt(octet, 2);
-  });
+    // Split the subnet mask binary into octets
+    const subnetMaskOctets = [];
+    for (let i = 0; i < 32; i += 8) {
+      const octetBinary = subnetMaskBinary.slice(i, i + 8).join("");
+      subnetMaskOctets.push(parseInt(octetBinary, 2));
+    }
 
-  // Calculate broadcast address
-  const broadcastAddressBinary = [];
-  for (let i = 0; i < 4; i++) {
-    const networkOctet = networkAddressBinary[i];
-    const subnetMaskOctet = subnetMaskOctets[i];
-    let broadcastOctet = "";
-    for (let j = 0; j < 8; j++) {
-      const networkBit = networkOctet.charAt(j);
-      const subnetMaskBit = subnetMaskOctet & (1 << (7 - j)) ? "1" : "0";
-      if (subnetMaskBit === "1") {
-        broadcastOctet += networkBit;
-      } else {
-        broadcastOctet += "1";
+    // Calculate the network address
+    const networkAddressBinary = [];
+    for (let i = 0; i < 4; i++) {
+      const ipOctet = ipBinary[i];
+      const subnetMaskOctet = subnetMaskOctets[i];
+      let networkOctet = "";
+      for (let j = 0; j < 8; j++) {
+        const ipBit = ipOctet.charAt(j);
+        const subnetMaskBit = subnetMaskOctet & (1 << (7 - j)) ? "1" : "0";
+        if (subnetMaskBit === "1") {
+          networkOctet += ipBit;
+        } else {
+          networkOctet += "0";
+        }
       }
+      networkAddressBinary.push(networkOctet);
     }
-    broadcastAddressBinary.push(broadcastOctet);
+
+    // Convert network address back to decimal
+    const networkAddress = networkAddressBinary.map((octet) => {
+      return parseInt(octet, 2);
+    });
+
+    // Calculate broadcast address
+    const broadcastAddressBinary = [];
+    for (let i = 0; i < 4; i++) {
+      const networkOctet = networkAddressBinary[i];
+      const subnetMaskOctet = subnetMaskOctets[i];
+      let broadcastOctet = "";
+      for (let j = 0; j < 8; j++) {
+        const networkBit = networkOctet.charAt(j);
+        const subnetMaskBit = subnetMaskOctet & (1 << (7 - j)) ? "1" : "0";
+        if (subnetMaskBit === "1") {
+          broadcastOctet += networkBit;
+        } else {
+          broadcastOctet += "1";
+        }
+      }
+      broadcastAddressBinary.push(broadcastOctet);
+    }
+
+    // Convert broadcast address back to decimal
+    const broadcastAddress = broadcastAddressBinary.map((octet) => {
+      return parseInt(octet, 2);
+    });
+
+    return broadcastAddress.join(".");
   }
 
-  // Convert broadcast address back to decimal
-  const broadcastAddress = broadcastAddressBinary.map((octet) => {
-    return parseInt(octet, 2);
-  });
+  const networkAddress = getNetworkAddress(ipAddress, prefix);
+  const lowestUsable = getLowestUsable(networkAddress);
+  const broadcast = getBroadcastAddress(ipAddress, prefix);
+  // const nextNetworkAddress = getNextNetworkAddress(ipAddress, prefix);
+  const highestUsable = decrementIPAddress(broadcast, 1);
 
-  return broadcastAddress.join(".");
-    }
-
-    const networkAddress = getNetworkAddress(ipAddress, prefix);
-    const lowestUsable = getLowestUsable(networkAddress);
-    const broadcast = getBroadcastAddress(ipAddress, prefix);
-
-    console.log(networkAddress);
-    console.log(lowestUsable);
-
+  console.log(networkAddress);
+  console.log(lowestUsable);
 
   // Update table values
   document.querySelector("#network-address").textContent = networkAddress;
   document.querySelector("#lowest-usable").textContent = lowestUsable;
-  // document.querySelector("#highest-usable").textContent = highestUsable;
+  document.querySelector("#highest-usable").textContent = highestUsable;
   document.querySelector("#broadcast-address").textContent = broadcast;
   // document.querySelector("#next-network-address").textContent =
   //   nextNetworkAddress;
@@ -329,4 +330,36 @@ function calculate() {
     return octets.join(".");
   }
 
+  function decrementIPAddress(ipAddress, decrement) {
+    var octets = ipAddress.split(".");
+    var lastIndex = octets.length - 1;
+
+    // Convert last octet to integer
+    var lastOctet = parseInt(octets[lastIndex]);
+
+    // Decrement last octet
+    lastOctet -= decrement;
+
+    // Handle borrow from previous octets
+    for (var i = lastIndex; i >= 0; i--) {
+      if (lastOctet < 0) {
+        // Borrow from previous octet
+        lastOctet += 256;
+        octets[i] = "255";
+        if (i > 0) {
+          // Decrement previous octet
+          octets[i - 1] = String(parseInt(octets[i - 1]) - 1);
+        } else {
+          // First octet reached, invalid
+          return "Invalid";
+        }
+      } else {
+        // Update last octet
+        octets[lastIndex] = String(lastOctet);
+        break;
+      }
+    }
+
+    return octets.join(".");
+  }
 }
