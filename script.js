@@ -392,6 +392,8 @@ function calculate() {
 
     return octets.join(".");
   }
+
+  console.log("Benedict");
 }
 
 console.log("Alex pogi");
